@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pathotrack-backend
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-change-in-production}
+      JWT_EXPIRE: 7d
+      DATABASE_PATH: ./database.db
+    volumes:
+      - ./backend/database.db:/app/database.db
+      - ./backend/src:/app/src
+    restart: unless-stopped
+    networks:
+      - pathotrack-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  frontend:
+    build:
+      context: .
+      target: builder
+      dockerfile: Dockerfile
+    container_name: pathotrack-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://backend:3000
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - pathotrack-network
+    restart: unless-stopped
+
+networks:
+  pathotrack-network:
+    driver: bridge
+
+volumes:
+  database:
+    driver: local

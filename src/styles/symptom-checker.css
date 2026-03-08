@@ -1,0 +1,260 @@
+.symptom-checker {
+  padding: 2rem 0;
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.checker-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.checker-card h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.symptoms-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.symptoms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.symptom-btn {
+  background: #f3f4f6;
+  border: 2px solid #e5e7eb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  color: #374151;
+}
+
+.symptom-btn:hover {
+  border-color: #667eea;
+  background: #f0f4ff;
+  transform: translateY(-2px);
+}
+
+.symptom-btn.selected {
+  background: #667eea;
+  border-color: #667eea;
+  color: white;
+}
+
+.selected-summary {
+  background: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  border-left: 4px solid #667eea;
+}
+
+.selected-summary p {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.selected-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.btn-lg {
+  width: 100%;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.results-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e5e7eb;
+}
+
+.results-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.disclaimer {
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  color: #92400e;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.infections-list {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.infection-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.infection-card:hover {
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+}
+
+.infection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.infection-header h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.description {
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.confidence {
+  margin-bottom: 1.5rem;
+}
+
+.confidence label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+  background: #e5e7eb;
+  height: 8px;
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress {
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.confidence span {
+  display: inline-block;
+  color: #667eea;
+  font-weight: 700;
+}
+
+.tests,
+.measures {
+  margin-bottom: 1.5rem;
+}
+
+.tests label,
+.measures label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.tests ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.tests li {
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  position: relative;
+  color: #374151;
+}
+
+.tests li:before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #10b981;
+  font-weight: bold;
+}
+
+.measures p {
+  color: #374151;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.next-steps {
+  background: #d1fae5;
+  border: 1px solid #6ee7b7;
+  color: #065f46;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  margin-top: 2rem;
+}
+
+.next-steps h3 {
+  color: #065f46;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.next-steps ol {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.next-steps li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .checker-card {
+    padding: 1rem;
+  }
+
+  .checker-card h1 {
+    font-size: 1.75rem;
+  }
+
+  .symptoms-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .infection-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .infection-header .badge {
+    margin-top: 0.5rem;
+  }
+}

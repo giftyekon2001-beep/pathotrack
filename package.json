@@ -1,0 +1,24 @@
+{
+  "name": "pathotrack-frontend",
+  "version": "1.0.0",
+  "description": "PathoTrack - Community Infection Detection and Reporting Platform",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "axios": "^1.6.2",
+    "react-router-dom": "^6.20.0",
+    "react-icons": "^5.0.1",
+    "leaflet": "^1.9.4",
+    "react-leaflet": "^4.2.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.8"
+  }
+}

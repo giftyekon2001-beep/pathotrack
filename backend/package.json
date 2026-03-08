@@ -1,0 +1,24 @@
+{
+  "name": "pathotrack-backend",
+  "version": "1.0.0",
+  "description": "PathoTrack - Community Infection Detection and Reporting Platform Backend",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node src/seed.js"
+  },
+  "keywords": ["health", "infection", "tracking", "outbreak"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.1.2",
+    "bcryptjs": "^2.4.3",
+    "sqlite3": "^5.1.6",
+    "dotenv": "^16.3.1",
+    "nodemailer": "^6.9.7"
+  }
+}

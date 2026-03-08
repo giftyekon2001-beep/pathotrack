@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PathoTrack - Community Infection Detection & Awareness Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #00cc99;
+            --accent-color: #ff6b6b;
+            --light-bg: #f5f9fc;
+            --dark-text: #1a1a1a;
+            --gray-text: #666666;
+            --border-color: #e0e0e0;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: #ffffff;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, var(--primary-color), #0052a3);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 102, 204, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            opacity: 0.8;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0052a3 100%);
+            color: white;
+            padding: 5rem 20px;
+            text-align: center;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Buttons */
+        button, .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #00b380;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 204, 153, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-bg);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Forms */
+        .form-section {
+            max-width: 600px;
+            margin: 3rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+            text-align: center;
+        }
+
+        .form-subtitle {
+            color: var(--gray-text);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Symptoms Grid */
+        .symptoms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .symptom-option {
+            background: var(--light-bg);
+            border: 2px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .symptom-option:hover {
+            border-color: var(--primary-color);
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .symptom-option input {
+            display: none;
+        }
+
+        .symptom-option input:checked + label {
+            color: white;
+        }
+
+        .symptom-option input:checked ~ .symptom-option {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .symptom-option.selected {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .symptom-label {
+            cursor: pointer;
+            font-weight: 600;
+            display: block;
+        }
+
+        /* Results Message */
+        .success-message {
+            background: var(--light-bg);
+            border-left: 4px solid var(--success-color);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            animation: slideInLeft 0.5s ease;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .results-box {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .results-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .results-box p {
+            color: var(--gray-text);
+        }
+
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .card p {
+            color: var(--gray-text);
+            line-height: 1.8;
+        }
+
+        /* Labs Section */
+        .labs-search {
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-box input {
+            flex: 1;
+        }
+
+        .search-box button {
+            padding: 0.75rem 1.5rem;
+        }
+
+        .labs-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .lab-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--border-color);
+        }
+
+        .lab-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .lab-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.75rem 0;
+            color: var(--gray-text);
+        }
+
+        .lab-info strong {
+            color: var(--dark-text);
+            width: 80px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-text);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        /* Page Section */
+        .page-section {
+            padding: 3rem 20px;
+            min-height: 100vh;
+            background: var(--light-bg);
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+        }
+
+        .page-title p {
+            font-size: 1.1rem;
+            color: var(--gray-text);
+        }
+
+        /* Alert */
+        .alert {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            animation: slideInTop 0.3s ease;
+        }
+
+        @keyframes slideInTop {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-error {
+            background: #ffe0e0;
+            border-left: 4px solid var(--accent-color);
+            color: #cc0000;
+        }
+
+        .alert-success {
+            background: #e0ffe0;
+            border-left: 4px solid var(--success-color);
+            color: #006600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu.active {
+                display: flex;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: linear-gradient(135deg, var(--primary-color), #0052a3);
+                padding: 1rem;
+                gap: 1rem;
+                z-index: 999;
+            }
+
+            .hero {
+                padding: 3rem 20px;
+                min-height: 400px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-buttons button {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .symptoms-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .form-section {
+                padding: 1.5rem;
+                margin: 1.5rem auto;
+            }
+
+            .page-title h2 {
+                font-size: 1.75rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1rem;
+            }
+
+            .form-section {
+                padding: 1rem;
+            }
+
+            button, .btn {
+                padding: 0.65rem 1.2rem;
+                font-size: 0.95rem;
+            }
+
+            .page-title h2 {
+                font-size: 1.5rem;
+            }
+
+            .card h3 {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-2 {
+            margin-top: 2rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showSection('home'); return false;">
+                <span class="logo-icon">🔬</span>
+                <span>PathoTrack</span>
+            </a>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#" class="nav-link" onclick="showSection('home'); toggleMenu(); return false;">Home</a></li>
+                <li><a href="#" class="nav-link" onclick="showSection('symptoms'); toggleMenu(); return false;">Check Symptoms</a></li>
+                <li><a href="#" class="nav-link" onclick="showSection('report'); toggleMenu(); return false;">Report Symptoms</a></li>
+                <li><a href="#" class="nav-link" onclick="showSection('awareness'); toggleMenu(); return false;">Awareness</a></li>
+                <li><a href="#" class="nav-link" onclick="showSection('labs'); toggleMenu(); return false;">Find Labs</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="section active">
+        <div class="hero">
+            <div class="hero-icon">🏥</div>
+            <h1>PathoTrack</h1>
+            <p class="tagline">Community Infection Detection & Awareness Platform</p>
+            <p>Help protect your community by reporting symptoms and staying informed about infectious diseases. Together, we can detect health trends early and ensure timely intervention.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="showSection('symptoms')">Check Symptoms</button>
+                <button class="btn btn-secondary" onclick="showSection('report')">Report Symptoms</button>
+            </div>
+        </div>
+
+        <div class="page-section">
+            <div class="container">
+                <div class="page-title">
+                    <h2>How PathoTrack Helps</h2>
+                    <p>Easy steps to better community health</p>
+                </div>
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">🔍</div>
+                        <h3>Check Symptoms</h3>
+                        <p>Select your symptoms and get instant information about possible infections. Our system provides evidence-based recommendations for next steps.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📝</div>
+                        <h3>Report Anonymously</h3>
+                        <p>Share your symptoms securely and anonymously. Your reports help us identify health trends in your community without compromising your privacy.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📚</div>
+                        <h3>Learn & Prevent</h3>
+                        <p>Access reliable information about infection prevention, hygiene practices, and health awareness to protect yourself and your community.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🏥</div>
+                        <h3>Find Laboratories</h3>
+                        <p>Locate nearby laboratories and diagnostic centers for professional testing and confirmation of any suspected infections.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Symptom Checker Section -->
+    <section id="symptoms" class="section">
+        <div class="page-section">
+            <div class="container">
+                <div class="form-section">
+                    <h2 class="form-title">Symptom Checker</h2>
+                    <p class="form-subtitle">Select the symptoms you are experiencing</p>
+
+                    <form id="symptomsForm" onsubmit="handleSymptomsSubmit(event)">
+                        <div class="form-group">
+                            <label>What symptoms are you experiencing?</label>
+                            <div class="symptoms-grid" id="symptomsGrid">
+                                <div class="symptom-option" onclick="toggleSymptom(this)">
+                                    <span class="symptom-label">🌡️ Fever</span>
+                                </div>
+                                <div class="symptom-option" onclick="toggleSymptom(this)">
+                                    <span class="symptom-label">🤕 Headache</span>
+                                </div>
+                                <div class="symptom-option" onclick="toggleSymptom(this)">
+                                    <span class="symptom-label">🤒 Cough</span>
+                                </div>
+                                <div class="symptom-option" onclick="toggleSymptom(this)">
+                                    <span class="symptom-label">🚽 Diarrhea</span>
+                                </div>
+                                <div class="symptom-option" onclick="toggleSymptom(this)">
+                                    <span class="symptom-label">🤢 Vomiting</span>
+                                </div>
+                                <div class="symptom-option" onclick="toggleSymptom(this)">
+                                    <span class="symptom-label">🫂 Rash</span>
+                                </div>
+                                <div class="symptom-option" onclick="toggleSymptom(this)">
+                                    <span class="symptom-label">🔥 Abdominal Pain</span>
+                                </div>
+                                <div class="symptom-option" onclick="toggleSymptom(this)">
+                                    <span class="symptom-label">🚽 Painful Urination</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Get Recommendations</button>
+                    </form>
+
+                    <div id="symptomsResults" style="display: none;">
+                        <div class="success-message">
+                            ✓ <strong>Analysis Complete</strong> - Based on your symptoms, here are the possible conditions and recommendations.
+                        </div>
+                        <div id="resultsContent"></div>
+                        <button class="btn btn-secondary" onclick="resetSymptomChecker()" style="width: 100%; margin-top: 1rem;">Check Again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Report Symptoms Section -->
+    <section id="report" class="section">
+        <div class="page-section">
+            <div class="container">
+                <div class="form-section">
+                    <h2 class="form-title">Report Your Symptoms</h2>
+                    <p class="form-subtitle">Help us monitor community health (completely anonymous)</p>
+
+                    <form id="reportForm" onsubmit="handleReportSubmit(event)">
+                        <div class="form-group">
+                            <label for="ageRange">Age Range</label>
+                            <select id="ageRange" required>
+                                <option value="">Select age range</option>
+                                <option value="0-17">0-17 years</option>
+                                <option value="18-25">18-25 years</option>
+                                <option value="26-35">26-35 years</option>
+                                <option value="36-50">36-50 years</option>
+                                <option value="51+">51+ years</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" required>
+                                <option value="">Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                                <option value="prefer-not">Prefer not to say</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Symptoms (select all that apply)</label>
+                            <div class="symptoms-grid">
+                                <div class="symptom-option" onclick="toggleReportSymptom(this)">
+                                    <span class="symptom-label">🌡️ Fever</span>
+                                </div>
+                                <div class="symptom-option" onclick="toggleReportSymptom(this)">
+                                    <span class="symptom-label">🤕 Headache</span>
+                                </div>
+                                <div class="symptom-option" onclick="toggleReportSymptom(this)">
+                                    <span class="symptom-label">🤒 Cough</span>
+                                </div>
+                                <div class="symptom-option" onclick="toggleReportSymptom(this)">
+                                    <span class="symptom-label">🚽 Diarrhea</span>
+                                </div>
+                                <div class="symptom-option" onclick="toggleReportSymptom(this)">
+                                    <span class="symptom-label">🤢 Vomiting</span>
+                                </div>
+                                <div class="symptom-option" onclick="toggleReportSymptom(this)">
+                                    <span class="symptom-label">🫂 Rash</span>
+                                </div>
+                                <div class="symptom-option" onclick="toggleReportSymptom(this)">
+                                    <span class="symptom-label">🔥 Abdominal Pain</span>
+                                </div>
+                                <div class="symptom-option" onclick="toggleReportSymptom(this)">
+                                    <span class="symptom-label">🚽 Painful Urination</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="duration">How long have you had these symptoms?</label>
+                            <select id="duration" required>
+                                <option value="">Select duration</option>
+                                <option value="less-than-24h">Less than 24 hours</option>
+                                <option value="1-3-days">1-3 days</option>
+                                <option value="4-7-days">4-7 days</option>
+                                <option value="more-than-week">More than a week</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Your Location (City/Area)</label>
+                            <input type="text" id="location" placeholder="e.g., Lagos, Abuja, Port Harcourt" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Report</button>
+                    </form>
+
+                    <div id="reportSuccess" style="display: none;">
+                        <div class="success-message" style="margin-top: 2rem;">
+                            <h3 style="color: var(--success-color); margin-bottom: 0.5rem;">✓ Thank You</h3>
+                            <p style="color: #006600;">Your report has been submitted successfully. Your information helps improve community health monitoring and early disease detection. Your privacy and anonymity are protected.</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="resetReportForm()" style="width: 100%; margin-top: 1rem;">Submit Another Report</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awareness Section -->
+    <section id="awareness" class="section">
+        <div class="page-section">
+            <div class="container">
+                <div class="page-title">
+                    <h2>Health Awareness & Prevention</h2>
+                    <p>Learn how to protect yourself and your community</p>
+                </div>
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">🦠</div>
+                        <h3>Typhoid Prevention</h3>
+                        <p><strong>What is it?</strong> Typhoid is a serious bacterial infection spread through contaminated water and food. It causes high fever, abdominal pain, and weakness.</p>
+                        <p style="margin-top: 1rem;"><strong>Prevention:</strong> Drink clean water, practice good hygiene, ensure proper food preparation, and get vaccinated if traveling to high-risk areas.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🧼</div>
+                        <h3>Hygiene Practices</h3>
+                        <p><strong>Key Habits:</strong> Wash hands frequently with soap and water, especially before eating and after using the toilet. Keep your living space clean and well-ventilated.</p>
+                        <p style="margin-top: 1rem;"><strong>Important:</strong> Cover your mouth when coughing or sneezing, and dispose of tissues properly to prevent disease transmission.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🍎</div>
+                        <h3>Safe Food Handling</h3>
+                        <p><strong>Dos:</strong> Cook food thoroughly, keep raw and cooked foods separate, refrigerate food promptly, and wash fruits and vegetables before consumption.</p>
+                        <p style="margin-top: 1rem;"><strong>Avoid:</strong> Eating street food from unhygienic sources, consuming expired items, or food prepared in unsanitary conditions.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">💊</div>
+                        <h3>Proper Antibiotic Use</h3>
+                        <p><strong>Best Practice:</strong> Only take antibiotics when prescribed by a doctor. Never share medications or use antibiotics for viral infections like flu or colds.</p>
+                        <p style="margin-top: 1rem;"><strong>Important:</strong> Complete the full course of antibiotics even if you feel better. Misuse leads to antibiotic resistance and treatment failures.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">💧</div>
+                        <h3>Clean Water Access</h3>
+                        <p><strong>Safe Water:</strong> Drink water from trusted sources. Boil water if unsure about its safety. Use water filters or purification tablets when necessary.</p>
+                        <p style="margin-top: 1rem;"><strong>Storage:</strong> Keep water in clean, covered containers. Never drink from stagnant water sources or unverified wells.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🛡️</div>
+                        <h3>When to Seek Help</h3>
+                        <p><strong>Visit a Doctor If:</strong> You have persistent fever (>3 days), severe abdominal pain, blood in stool, difficulty breathing, or symptoms that worsen rapidly.</p>
+                        <p style="margin-top: 1rem;"><strong>Emergency:</strong> Seek immediate medical attention for confusion, loss of consciousness, or severe dehydration.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Labs Section -->
+    <section id="labs" class="section">
+        <div class="page-section">
+            <div class="container">
+                <div class="page-title">
+                    <h2>Find a Laboratory</h2>
+                    <p>Locate nearby diagnostic centers for professional testing</p>
+                </div>
+
+                <div class="labs-search">
+                    <div class="search-box">
+                        <input type="text" id="labSearch" placeholder="Search by city or lab name..." onkeyup="filterLabs()">
+                        <button class="btn btn-primary" onclick="filterLabs()">Search</button>
+                    </div>
+                </div>
+
+                <div class="labs-list" id="labsList">
+                    <div class="lab-card">
+                        <h4>🏥 Central Medical Diagnostics</h4>
+                        <div class="lab-info">
+                            <strong>📍 Location:</strong>
+                            <span>123 Hospital Road, Lagos Island, Lagos</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>📞 Phone:</strong>
+                            <span>+234 (0) 812 345 6789</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>🕐 Hours:</strong>
+                            <span>Mon-Fri 8:00 AM - 5:00 PM, Sat 9:00 AM - 1:00 PM</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>✓ Tests:</strong>
+                            <span>Blood culture, Stool analysis, Urine microscopy</span>
+                        </div>
+                    </div>
+
+                    <div class="lab-card">
+                        <h4>🔬 Diagnostic Center Plus</h4>
+                        <div class="lab-info">
+                            <strong>📍 Location:</strong>
+                            <span>456 Medical Complex, Victoria Island, Lagos</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>📞 Phone:</strong>
+                            <span>+234 (0) 901 234 5678</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>🕐 Hours:</strong>
+                            <span>Mon-Sat 7:00 AM - 6:00 PM, Sun 10:00 AM - 2:00 PM</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>✓ Tests:</strong>
+                            <span>Rapid testing, Culture analysis, Molecular testing</span>
+                        </div>
+                    </div>
+
+                    <div class="lab-card">
+                        <h4>🏥 Advanced Pathology Lab</h4>
+                        <div class="lab-info">
+                            <strong>📍 Location:</strong>
+                            <span>789 Health Park, Abuja FCT</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>📞 Phone:</strong>
+                            <span>+234 (0) 706 789 0123</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>🕐 Hours:</strong>
+                            <span>24/7 - Emergency service available</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>✓ Tests:</strong>
+                            <span>All standard tests, Emergency screening, Home collection</span>
+                        </div>
+                    </div>
+
+                    <div class="lab-card">
+                        <h4>🔬 QuickTest Laboratory</h4>
+                        <div class="lab-info">
+                            <strong>📍 Location:</strong>
+                            <span>321 Clinic Street, Port Harcourt, Rivers</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>📞 Phone:</strong>
+                            <span>+234 (0) 845 123 4567</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>🕐 Hours:</strong>
+                            <span>Mon-Fri 6:30 AM - 7:00 PM, Sat-Sun 8:00 AM - 4:00 PM</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>✓ Tests:</strong>
+                            <span>Fast results, Blood tests, Infectious disease screening</span>
+                        </div>
+                    </div>
+
+                    <div class="lab-card">
+                        <h4>🏥 City Medical Labs</h4>
+                        <div class="lab-info">
+                            <strong>📍 Location:</strong>
+                            <span>654 Health Avenue, Kano, Kano State</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>📞 Phone:</strong>
+                            <span>+234 (0) 761 234 5678</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>🕐 Hours:</strong>
+                            <span>Mon-Fri 7:00 AM - 5:30 PM, Sat 8:00 AM - 2:00 PM</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>✓ Tests:</strong>
+                            <span>Comprehensive testing, Typhoid screening, Parasite analysis</span>
+                        </div>
+                    </div>
+
+                    <div class="lab-card">
+                        <h4>🔬 Health Insights Diagnostic</h4>
+                        <div class="lab-info">
+                            <strong>📍 Location:</strong>
+                            <span>987 Science Park, Calabar, Cross River</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>📞 Phone:</strong>
+                            <span>+234 (0) 872 456 7890</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>🕐 Hours:</strong>
+                            <span>Mon-Fri 8:00 AM - 6:00 PM, Sat 9:00 AM - 3:00 PM</span>
+                        </div>
+                        <div class="lab-info">
+                            <strong>✓ Tests:</strong>
+                            <span>Full diagnostic services, Quick results, Online consultation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-center" style="margin-top: 2rem; color: var(--gray-text);">
+                    💡 <strong>Tip:</strong> Contact your nearest laboratory directly to confirm availability, pricing, and any specific requirements before visiting.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p><strong>PathoTrack</strong> - Community Infection Detection & Awareness Platform</p>
+            <p>We help communities detect health trends early and access reliable health information.</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                For emergencies, please contact your nearest hospital or call your local emergency number. PathoTrack is not a substitute for professional medical advice.
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7;">
+                © 2024 PathoTrack. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Section Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            // Close mobile menu if open
+            document.getElementById('navMenu').classList.remove('active');
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Symptom Checker
+        let selectedSymptoms = [];
+
+        function toggleSymptom(element) {
+            element.classList.toggle('selected');
+            const symptomText = element.textContent.trim();
+            if (selectedSymptoms.includes(symptomText)) {
+                selectedSymptoms = selectedSymptoms.filter(s => s !== symptomText);
+            } else {
+                selectedSymptoms.push(symptomText);
+            }
+        }
+
+        function handleSymptomsSubmit(event) {
+            event.preventDefault();
+
+            if (selectedSymptoms.length === 0) {
+                alert('Please select at least one symptom');
+                return;
+            }
+
+            // Symptom to infection mapping
+            const symptomMap = {
+                '🌡️ Fever': ['Typhoid', 'Malaria', 'Dengue Fever'],
+                '🤕 Headache': ['Malaria', 'Meningitis', 'Tension Headache'],
+                '🤒 Cough': ['Tuberculosis', 'Pneumonia', 'Common Cold'],
+                '🚽 Diarrhea': ['Cholera', 'Typhoid', 'Gastroenteritis'],
+                '🤢 Vomiting': ['Cholera', 'Typhoid', 'Food Poisoning'],
+                '🫂 Rash': ['Dengue Fever', 'Measles', 'Chickenpox'],
+                '🔥 Abdominal Pain': ['Typhoid', 'Appendicitis', 'Gastritis'],
+                '🚽 Painful Urination': ['Urinary Tract Infection', 'Sexually Transmitted Infection']
+            };
+
+            const possibleConditions = new Set();
+            selectedSymptoms.forEach(symptom => {
+                if (symptomMap[symptom]) {
+                    symptomMap[symptom].forEach(condition => possibleConditions.add(condition));
+                }
+            });
+
+            // Generate results
+            let resultsHTML = '<h3 style="color: var(--primary-color); margin-bottom: 1rem;">Based on your symptoms:</h3>';
+
+            Array.from(possibleConditions).slice(0, 3).forEach(condition => {
+                resultsHTML += `
+                    <div class="results-box">
+                        <h4>${condition}</h4>
+                        <p>This condition may be associated with the symptoms you reported. However, this is not a diagnosis.</p>
+                        <p style="margin-top: 0.5rem; font-weight: 600;">Recommendation: Visit a laboratory for professional testing and confirmation.</p>
+                    </div>
+                `;
+            });
+
+            resultsHTML += `
+                <div class="results-box" style="border-left-color: var(--warning-color);">
+                    <h4 style="color: var(--warning-color);">⚠️ Important Notice</h4>
+                    <p>This symptom checker is for informational purposes only and is not a substitute for professional medical diagnosis. Please consult with a healthcare professional for proper evaluation and treatment.</p>
+                </div>
+            `;
+
+            document.getElementById('resultsContent').innerHTML = resultsHTML;
+            document.getElementById('symptomsForm').style.display = 'none';
+            document.getElementById('symptomsResults').style.display = 'block';
+        }
+
+        function resetSymptomChecker() {
+            selectedSymptoms = [];
+            document.querySelectorAll('#symptomsGrid .symptom-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.getElementById('symptomsForm').style.display = 'block';
+            document.getElementById('symptomsResults').style.display = 'none';
+        }
+
+        // Report Symptoms
+        let reportSymptoms = [];
+
+        function toggleReportSymptom(element) {
+            element.classList.toggle('selected');
+            const symptomText = element.textContent.trim();
+            if (reportSymptoms.includes(symptomText)) {
+                reportSymptoms = reportSymptoms.filter(s => s !== symptomText);
+            } else {
+                reportSymptoms.push(symptomText);
+            }
+        }
+
+        function handleReportSubmit(event) {
+            event.preventDefault();
+
+            if (reportSymptoms.length === 0) {
+                alert('Please select at least one symptom');
+                return;
+            }
+
+            // Here you would send the data to a server
+            // For now, we'll just show a success message
+            document.getElementById('reportForm').style.display = 'none';
+            document.getElementById('reportSuccess').style.display = 'block';
+
+            // Log the data (in real app, send to backend)
+            console.log({
+                age: document.getElementById('ageRange').value,
+                gender: document.getElementById('gender').value,
+                symptoms: reportSymptoms,
+                duration: document.getElementById('duration').value,
+                location: document.getElementById('location').value,
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        function resetReportForm() {
+            document.getElementById('reportForm').reset();
+            reportSymptoms = [];
+            document.querySelectorAll('#report .symptom-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.getElementById('reportForm').style.display = 'block';
+            document.getElementById('reportSuccess').style.display = 'none';
+        }
+
+        // Labs Search
+        function filterLabs() {
+            const searchValue = document.getElementById('labSearch').value.toLowerCase();
+            const labCards = document.querySelectorAll('.lab-card');
+
+            labCards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchValue)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

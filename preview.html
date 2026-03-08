@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PathoTrack - Community Infection Detection Platform</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+    }
+
+    /* Navigation */
+    .navbar {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .navbar-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .navbar-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.8;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 6rem 0;
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+
+    .hero .subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      opacity: 0.95;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      opacity: 0.85;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: white;
+      color: #667eea;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: #667eea;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 4rem 0;
+      background: #f5f7fa;
+    }
+
+    .features h2 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: #1f2937;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: #1f2937;
+    }
+
+    .feature-card p {
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    /* How It Works */
+    .how-it-works {
+      padding: 4rem 0;
+      background: white;
+    }
+
+    .how-it-works h2 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: #1f2937;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .step {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .step-number {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 auto 1rem;
+    }
+
+    .step h3 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: #1f2937;
+    }
+
+    .step p {
+      color: #6b7280;
+    }
+
+    /* CTA Section */
+    .cta {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: white;
+    }
+
+    .cta p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .btn-lg {
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* Page Content */
+    .page {
+      display: none;
+      background: #f5f7fa;
+      min-height: 100vh;
+      padding: 2rem 0;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .page-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .page-card h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      color: #1f2937;
+    }
+
+    .page-card .subtitle {
+      text-align: center;
+      color: #6b7280;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #374151;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+    }
+
+    /* Symptoms Grid */
+    .symptoms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .symptom-btn {
+      background: #f3f4f6;
+      border: 2px solid #e5e7eb;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      color: #374151;
+    }
+
+    .symptom-btn:hover {
+      border-color: #667eea;
+      background: #f0f4ff;
+    }
+
+    .symptom-btn.selected {
+      background: #667eea;
+      border-color: #667eea;
+      color: white;
+    }
+
+    /* Results */
+    .results-section {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid #e5e7eb;
+    }
+
+    .infection-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .infection-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .infection-header h3 {
+      margin: 0;
+      color: #1f2937;
+    }
+
+    .badge {
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .badge-warning {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    /* Alert */
+    .alert {
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .alert-success {
+      background: #d1fae5;
+      color: #047857;
+      border: 1px solid #6ee7b7;
+    }
+
+    .alert-danger {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+
+    /* Footer */
+    .footer {
+      background: #1f2937;
+      color: rgba(255,255,255,0.7);
+      padding: 2rem 0;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer p {
+      margin: 0.5rem 0;
+    }
+
+    /* Labs Grid */
+    .labs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .lab-card {
+      background: white;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .lab-card h3 {
+      margin: 0 0 1rem 0;
+      color: #1f2937;
+    }
+
+    .lab-info p {
+      margin: 0.75rem 0;
+      color: #374151;
+      font-size: 0.95rem;
+    }
+
+    /* Education Grid */
+    .education-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .education-card {
+      background: white;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .education-card h3 {
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+
+    .category-badge {
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero .subtitle {
+        font-size: 1.25rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .symptoms-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <a class="navbar-logo" href="#">🔬 PathoTrack</a>
+      <ul class="nav-links">
+        <li><a onclick="showPage('home')">Home</a></li>
+        <li><a onclick="showPage('symptoms')">Symptoms</a></li>
+        <li><a onclick="showPage('labs')">Labs</a></li>
+        <li><a onclick="showPage('education')">Education</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Home Page -->
+  <div id="home" class="page active">
+    <div class="hero">
+      <div class="container">
+        <h1>PathoTrack</h1>
+        <p class="subtitle">Early Detection, Community Protection</p>
+        <p>PathoTrack is a community-driven infection detection and reporting platform that helps identify infectious disease trends early through symptom reporting and laboratory result tracking.</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" onclick="showPage('symptoms')">Start Symptom Check</button>
+          <button class="btn btn-secondary" onclick="alert('Login feature ready in full app')">Login</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="container">
+        <h2>Key Features</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">✓</div>
+            <h3>Symptom Checker</h3>
+            <p>Report your symptoms and get possible infection suggestions based on AI-powered analysis</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📍</div>
+            <h3>Find Nearby Labs</h3>
+            <p>Locate nearby laboratories and get their contact information and directions instantly</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📈</div>
+            <h3>Outbreak Detection</h3>
+            <p>Monitor disease trends in your area and receive alerts about possible outbreak clusters</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📚</div>
+            <h3>Health Education</h3>
+            <p>Learn about infection prevention, food safety, and proper hygiene practices</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="how-it-works">
+      <div class="container">
+        <h2>How It Works</h2>
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Report Symptoms</h3>
+            <p>Enter your symptoms and location to help track disease patterns</p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Get Suggestions</h3>
+            <p>Receive possible infection suggestions and recommended tests</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Find Laboratory</h3>
+            <p>Locate nearby laboratories and visit for professional testing</p>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <h3>Share Results</h3>
+            <p>Laboratories share results to help detect outbreak patterns</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta">
+      <div class="container">
+        <h2>Join Our Community</h2>
+        <p>Help us detect infections early and protect public health</p>
+        <button class="btn btn-primary btn-lg" onclick="alert('Registration available in full app')">Get Started Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Symptoms Page -->
+  <div id="symptoms" class="page">
+    <div class="container">
+      <div class="page-card">
+        <h1>Symptom Checker</h1>
+        <p class="subtitle">Select your symptoms to get possible infection suggestions</p>
+        
+        <div id="symptomsSection">
+          <h3 style="margin-bottom: 1rem;">Select Your Symptoms</h3>
+          <div class="symptoms-grid" id="symptomsGrid">
+            <button class="symptom-btn" onclick="toggleSymptom(this, 'Fever')">Fever</button>
+            <button class="symptom-btn" onclick="toggleSymptom(this, 'Cough')">Cough</button>
+            <button class="symptom-btn" onclick="toggleSymptom(this, 'Diarrhea')">Diarrhea</button>
+            <button class="symptom-btn" onclick="toggleSymptom(this, 'Rash')">Rash</button>
+            <button class="symptom-btn" onclick="toggleSymptom(this, 'Vomiting')">Vomiting</button>
+            <button class="symptom-btn" onclick="toggleSymptom(this, 'Headache')">Headache</button>
+            <button class="symptom-btn" onclick="toggleSymptom(this, 'Abdominal Pain')">Abdominal Pain</button>
+            <button class="symptom-btn" onclick="toggleSymptom(this, 'Painful Urination')">Painful Urination</button>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="checkSymptoms()">Check Symptoms</button>
+        </div>
+
+        <div id="resultsSection" class="results-section" style="display: none;">
+          <h2>Possible Infections</h2>
+          <div id="resultsList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Labs Page -->
+  <div id="labs" class="page">
+    <div class="container">
+      <div class="page-card">
+        <h1>Find Laboratories</h1>
+        <p class="subtitle">Locate nearby laboratories for testing and diagnosis</p>
+        <div class="labs-grid">
+          <div class="lab-card">
+            <h3>Central Medical Lab</h3>
+            <div class="lab-info">
+              <p><strong>📍 Address:</strong> 123 Hospital St, Lagos</p>
+              <p><strong>📞 Phone:</strong> +234 812 345 678</p>
+              <p><strong>🕐 Hours:</strong> Mon-Fri 8AM-5PM</p>
+              <p><strong>🔬 Tests:</strong> Blood culture, Stool culture, Urine microscopy</p>
+            </div>
+          </div>
+          <div class="lab-card">
+            <h3>Diagnostic Center Plus</h3>
+            <div class="lab-info">
+              <p><strong>📍 Address:</strong> 456 Clinic Rd, Abuja</p>
+              <p><strong>📞 Phone:</strong> +234 901 234 567</p>
+              <p><strong>🕐 Hours:</strong> Mon-Sat 7AM-6PM</p>
+              <p><strong>🔬 Tests:</strong> Rapid tests, Culture, Microscopy</p>
+            </div>
+          </div>
+          <div class="lab-card">
+            <h3>Advanced Pathology Lab</h3>
+            <div class="lab-info">
+              <p><strong>📍 Address:</strong> 789 Medical Plaza, Port Harcourt</p>
+              <p><strong>📞 Phone:</strong> +234 789 456 123</p>
+              <p><strong>🕐 Hours:</strong> 24/7 Emergency</p>
+              <p><strong>🔬 Tests:</strong> All standard tests, Emergency services</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Education Page -->
+  <div id="education" class="page">
+    <div class="container">
+      <div class="page-card">
+        <h1>Health Education Hub</h1>
+        <p class="subtitle">Learn about infection prevention and public health</p>
+        <div class="education-grid">
+          <div class="education-card">
+            <span class="category-badge">Hygiene</span>
+            <h3>Hand Hygiene</h3>
+            <p>Wash your hands frequently with soap and clean water for at least 20 seconds, especially before eating and after using the toilet.</p>
+          </div>
+          <div class="education-card">
+            <span class="category-badge">Hygiene</span>
+            <h3>Respiratory Hygiene</h3>
+            <p>Cover your mouth and nose with a tissue when you cough or sneeze. Dispose of tissues properly and wash hands afterward.</p>
+          </div>
+          <div class="education-card">
+            <span class="category-badge">Food Safety</span>
+            <h3>Safe Food Handling</h3>
+            <p>Cook food to safe temperatures, keep raw and cooked foods separate, refrigerate promptly, and wash fruits and vegetables before eating.</p>
+          </div>
+          <div class="education-card">
+            <span class="category-badge">Water Safety</span>
+            <h3>Clean Drinking Water</h3>
+            <p>Drink safe, clean water. Boil water if unsure about its safety. Use water purification methods when needed. Avoid untreated water sources.</p>
+          </div>
+          <div class="education-card">
+            <span class="category-badge">Prevention</span>
+            <h3>Vaccination</h3>
+            <p>Keep up with recommended vaccinations. Vaccinations protect you and those around you from serious diseases. Consult your healthcare provider.</p>
+          </div>
+          <div class="education-card">
+            <span class="category-badge">Prevention</span>
+            <h3>Social Distancing</h3>
+            <p>Maintain physical distance from sick people. During disease outbreaks, follow local health guidelines on distancing and quarantine measures.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 PathoTrack. All rights reserved.</p>
+      <p>Helping communities detect infections early | Protecting public health</p>
+    </div>
+  </footer>
+
+  <script>
+    let selectedSymptoms = [];
+
+    function showPage(pageId) {
+      // Hide all pages
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+      });
+      // Show selected page
+      document.getElementById(pageId).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function toggleSymptom(button, symptom) {
+      button.classList.toggle('selected');
+      if (selectedSymptoms.includes(symptom)) {
+        selectedSymptoms = selectedSymptoms.filter(s => s !== symptom);
+      } else {
+        selectedSymptoms.push(symptom);
+      }
+    }
+
+    function checkSymptoms() {
+      if (selectedSymptoms.length === 0) {
+        alert('Please select at least one symptom');
+        return;
+      }
+
+      const infectionMap = {
+        'Fever': ['Typhoid', 'Malaria', 'Cholera', 'Dengue'],
+        'Cough': ['Tuberculosis', 'Pneumonia', 'Influenza'],
+        'Diarrhea': ['Cholera', 'Typhoid', 'Gastroenteritis'],
+        'Rash': ['Dengue', 'Measles', 'Fungal Infection'],
+        'Vomiting': ['Cholera', 'Typhoid', 'Gastroenteritis'],
+        'Headache': ['Malaria', 'Meningitis', 'Dengue'],
+        'Abdominal Pain': ['Typhoid', 'Cholera'],
+        'Painful Urination': ['Urinary Tract Infection', 'STI']
+      };
+
+      const infectionScores = {};
+      selectedSymptoms.forEach(symptom => {
+        const infections = infectionMap[symptom] || [];
+        infections.forEach(infection => {
+          infectionScores[infection] = (infectionScores[infection] || 0) + 1;
+        });
+      });
+
+      const suggestions = Object.entries(infectionScores)
+        .sort(([, a], [, b]) => b - a)
+        .slice(0, 5)
+        .map(([infection, score]) => ({
+          infection,
+          confidence: (score / selectedSymptoms.length * 100).toFixed(1)
+        }));
+
+      const resultsList = document.getElementById('resultsList');
+      resultsList.innerHTML = suggestions.map(s => `
+        <div class="infection-card">
+          <div class="infection-header">
+            <h3>${s.infection}</h3>
+            <span class="badge">${s.confidence}% confidence</span>
+          </div>
+          <p><strong>Recommended Tests:</strong> Culture tests, Blood work, Microscopy</p>
+          <p><strong>Advice:</strong> Please consult a healthcare professional for accurate diagnosis and treatment.</p>
+        </div>
+      `).join('');
+
+      document.getElementById('symptomsSection').style.display = 'none';
+      document.getElementById('resultsSection').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
